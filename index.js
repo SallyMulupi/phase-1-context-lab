@@ -9,7 +9,7 @@
  for you to use if you need it!
  */
 
-function createEmployeeRecord(recordKls) {
+function createEmployeeRecord(recordArr) {
     return {
         firstName: recordKls[0],
         familyName: recordKls[1],
@@ -21,12 +21,12 @@ function createEmployeeRecord(recordKls) {
 
 }
 
-function createEmployeeRecords(recordArrOfKls) {
-    return recordArrOfKls.map(Kll => createEmployeeRecord(Kls))
+function createEmployeeRecords(recordArrOfArr) {
+    return recordArrOfArr.map(Arr => createEmployeeRecord(Arr))
 
 }
 
-function createTimeInEvent(recordKls, dateHour) {
+function createTimeInEvent(recordArr, dateHour) {
     const [date, hour] = dateHour.split(' ')
 
     const timeInObject = {
@@ -34,24 +34,24 @@ function createTimeInEvent(recordKls, dateHour) {
         hour: hour,
         date: date,
     }
-    recordKls.timeInEvents.push(timeInObject)
-    return recordKls;
+    recordArr.timeInEvents.push(timeInObject)
+    return recordArr;
 
 
 }
 
-function createTimeOutEvent(recordKls, dateHour) {
+function createTimeOutEvent(recordArr, dateHour) {
     const timeOutObject = {
         type: 'TimeOut',
         hour: hour,
         date: date,
     }
     recordArr.timeOutEvents.push(timeOutObject)
-    return recordKls
+    return recordArr
 }
 
 
-function hoursWorkedOnDate(recordKls, dateHour) {
+function hoursWorkedOnDate(recordArr, dateHour) {
     const timeIn = recordArr.timeInEvents.find(dateStamp => dateStamp.date === dateNoHour).hour
 
     const timeOut = recordArr.timeOutEvents.find(dateStamp => dateStamp.date === dateNoHour).hour
@@ -60,15 +60,15 @@ function hoursWorkedOnDate(recordKls, dateHour) {
 
 }
 
-function wagesEarnedOnDate(recordKls, dateHour) {
-    const hoursWorked = hoursWorkedOnDate(recordKls, dateNoHour)
+function wagesEarnedOnDate(recordArr, dateHour) {
+    const hoursWorked = hoursWorkedOnDate(recordArr, dateNoHour)
     const ratePerHour = recordKls.payPerHour
     return (hoursWorked * ratePerHour)
 }
 
-function allWagesFor(recordKls) {
+function allWagesFor(recordArr) {
     const dateWorked = []
-    recordKls.timeOutEvents.map(dateStamp => dateWorked.push(dateStamp.date))
+    recordArr.timeOutEvents.map(dateStamp => dateWorked.push(dateStamp.date))
     const wagesOnDate = dateWorked.map(dateStamp => wagesEarnedOnDate(recordKls, dateStamp))
     const payOwned = wagesOnDate.reduce((previousValue, currentValue) => (previousValue + currentValue), 0)
     return payOwned
@@ -76,11 +76,11 @@ function allWagesFor(recordKls) {
 
 }
 
-function calculatePayroll(recordKls) {
+function calculatePayroll(recordArr) {
     const totalWagesPerDay = []
-    recordArrOfKls.map(kls => {
-        allWagesFor(kls)
-        const wagesOnDate = kls
+    recordArrOfArr.map(arr => {
+        allWagesFor(arr)
+        const wagesOnDate = arr
             .timeOutEvents.map(dateStamp => wagesEarnedOnDate(kls, dateStamp.date))
         const employeesWages = wagesOnDate.reduce((previousValue, currentValue) => (previousValue + currentValue), 0)
         totalWagesPerDay.push(employeesWages)
